@@ -4,8 +4,7 @@ gem "rails", "~> 8.1"
 
 gem "bootsnap", "~> 1.24"
 
-gem "sqlite3", "~> 2.9"
-
 gem "puma", "~> 8.0"
 
 gem "docker-api", "~> 2.4"
+gem "pg", "~> 1.4"

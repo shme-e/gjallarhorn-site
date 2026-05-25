@@ -132,6 +132,7 @@ GEM
     nio4r (2.7.5)
     nokogiri (1.19.3-x86_64-linux-gnu)
       racc (~> 1.4)
+    pg (1.6.3-x86_64-linux)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -188,7 +189,6 @@ GEM
     reline (0.6.3)
       io-console (~> 0.5)
     securerandom (0.4.1)
-    sqlite3 (2.9.4-x86_64-linux-gnu)
     stringio (3.2.0)
     thor (1.5.0)
     timeout (0.6.1)
@@ -210,9 +210,9 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (~> 1.24)
   docker-api (~> 2.4)
+  pg (~> 1.4)
   puma (~> 8.0)
   rails (~> 8.1)
-  sqlite3 (~> 2.9)
 
 BUNDLED WITH
    2.6.7
