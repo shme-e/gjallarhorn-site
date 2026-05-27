@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gjallarhorn-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    networks:
+      - gjallarhorn-net
+    environment:
+      - RAILS_MASTER_KEY=todo from env
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gjallarhorn-frontend
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    networks:
+      - gjallarhorn-net
+    depends_on:
+      - backend
+
+  bridge:
+    build:
+      context: ./bridge
+      dockerfile: Dockerfile
+    container_name: gjallarhorn-bridge
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    networks:
+      - gjallarhorn-net
+    depends_on:
+      - backend
+      - frontend
+      - db
+
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    networks:
+      - gjallarhorn-net # Connect to the same network as the app container
+    ports:
+      - "5432:5432"
+
+    # Health check ensures PostgreSQL is ready before dependent services start
+    # This is critical for depends_on with condition: service_healthy to work properly
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s # Check every 10 seconds
+      timeout: 5s # Wait up to 5 seconds for response
+      retries: 5 # Retry 5 times before marking as unhealthy
+      start_period: 30s # Give PostgreSQL 30 seconds to start before health checks begin
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+
+# Persistent storage for PostgreSQL data
+volumes:
+  postgres-data:
+    # Named volume ensures data persists across container restarts
+    # Located at /var/lib/postgresql/data inside the container
+
+networks:
+  gjallarhorn-net:
+    driver: bridge

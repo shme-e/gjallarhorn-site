@@ -1,0 +1,4 @@
+# this is just an example
+:4000
+
+reverse_proxy frontend:3000
