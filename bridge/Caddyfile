@@ -1,4 +1,12 @@
 # this is just an example
 :4000
 
-reverse_proxy frontend:3000
+handle /test/api/json/* {
+    reverse_proxy gjallarhorn-instance:3000
+}
+handle /test/api/json {
+    reverse_proxy gjallarhorn-instance:3000
+}
+handle_path /test/* {
+    reverse_proxy gjallarhorn-instance:3000
+}

@@ -43,6 +43,9 @@ services:
       - backend
       - frontend
       - db
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
 
   db:
     image: postgres:latest
@@ -66,12 +69,25 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: postgres
+  gjallarhorn-instance:
+    build:
+      context: ./gjallarhorn
+      dockerfile: docker/Dockerfile
+    restart: unless-stopped
+    networks:
+      - gjallarhorn-net
+    ports:
+      - "3002:3000"
+    environment:
+      GJALLARHORN_HOST: http://localhost:4000/test/
 
 # Persistent storage for PostgreSQL data
 volumes:
   postgres-data:
     # Named volume ensures data persists across container restarts
     # Located at /var/lib/postgresql/data inside the container
+  caddy_data:
+  caddy_config:
 
 networks:
   gjallarhorn-net:
