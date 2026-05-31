@@ -11,8 +11,8 @@ services:
       - "8000:8000"
     networks:
       - gjallarhorn-net
-    environment:
-      - RAILS_MASTER_KEY=todo from env
+    env_file:
+      - .env.backend
     depends_on:
       - db
 
