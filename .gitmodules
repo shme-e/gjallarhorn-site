@@ -1,0 +1,3 @@
+[submodule "gjallarhorn"]
+	path = gjallarhorn
+	url = git@github.com:shme-e/gjallarhorn.git
