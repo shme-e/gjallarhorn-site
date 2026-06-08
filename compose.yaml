@@ -73,13 +73,13 @@ services:
     build:
       context: ./gjallarhorn
       dockerfile: docker/Dockerfile
+      args:
+        CONTAINER_PATH: /test2
     restart: unless-stopped
     networks:
       - gjallarhorn-net
     ports:
       - "3002:3000"
-    environment:
-      GJALLARHORN_HOST: http://localhost:4000/test/
 
 # Persistent storage for PostgreSQL data
 volumes:
