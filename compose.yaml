@@ -30,9 +30,8 @@ services:
       - backend
 
   bridge:
-    build:
-      context: ./bridge
-      dockerfile: Dockerfile
+    image: caddy
+    command: caddy run --resume
     container_name: gjallarhorn-bridge
     restart: unless-stopped
     ports:
