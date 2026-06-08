@@ -9,3 +9,5 @@ gem "sqlite3", "~> 2.9"
 gem "puma", "~> 8.0"
 
 gem "docker-api", "~> 2.4"
+
+gem "rack-cors", "~> 3.0"

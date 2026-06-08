@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_11_195824) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_11_203317) do
   create_table "containers", force: :cascade do |t|
+    t.string "container_id"
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
